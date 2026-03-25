@@ -1,0 +1,94 @@
+Terraform AWS Infrastructure Setup
+
+This repository contains Terraform code to provision a complete AWS infrastructure including:
+
+VPC with public subnets
+
+EC2 instances running Apache web servers
+
+Application Load Balancer (ALB)
+
+Target Group with health checks
+
+Security Groups
+
+User-data scripts for EC2 bootstrapping
+
+Key Pair integration for SSH access
+
+📁 Project Structure
+
+├── main.tf              # Entry point for Terraform configuration
+├── vpc.tf               # VPC, subnets, route tables, IGW
+├── ec2.tf               # EC2 instances and key pair reference
+├── alb.tf               # Load Balancer and Target Group
+├── userdata.mk          # User-data script for Webserver1
+├── userdata1.mk         # User-data script for Webserver2
+├── variables.tf         # Input variables
+├── outputs.tf           # Output values
+├── terraform.tfstate    # Terraform state file (not committed)
+
+🚀 Deployment Steps
+
+1. Initialize Terraform
+
+terraform init
+
+2. Review the plan
+
+terraform plan
+
+3. Apply the configuration
+
+terraform apply
+
+4. Destroy the infrastructure (if needed)
+
+terraform destroy
+
+🔐 Key Pair Setup
+
+Ensure your AWS key pair exists and is referenced correctly in ec2.tf:
+
+key_name = "key pair"
+
+Do not commit your .pem file to GitHub. Add it to .gitignore:
+
+*.pem
+terraform.tfstate
+terraform.tfstate.backup
+.terraform/
+
+🌐 Architecture Overview
+
+Users access the application via the ALB
+
+ALB forwards traffic to EC2 instances in two public subnets
+
+EC2 instances run Apache and serve content from user-data scripts
+
+Security Groups allow HTTP and SSH access
+
+Key pair enables SSH login for troubleshooting
+
+📸 Diagram
+
+Refer to the architecture diagram in the /assets folder for a visual overview.
+
+🧰 Tools Used
+
+Terraform
+
+AWS EC2, VPC, ALB
+
+Apache
+
+📌 Notes
+
+Ensure your AWS credentials are configured via CLI or environment variables
+
+Use terraform apply -replace="aws_instance.Webserver1" to recreate EC2 with updated key
+
+📞 Contact
+
+For questions or improvements, feel free to open an issue or reach out via GitHub.
